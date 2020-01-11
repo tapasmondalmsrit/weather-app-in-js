@@ -1,0 +1,47 @@
+<html>
+
+<head>
+  <title>mobiostic js</title>
+  <script></script>
+</head>
+
+<body>
+  <h2>Get the weather information of your town</h2>
+  <input type="text" id="getCIty" />
+  <br />
+  <br />
+  <bouton onclick="fetchdata()"
+    style="border-radius: 3px;background: darkgrey;border: 1px solid;padding: 5px;margin: 2px;cursor: pointer;">fetch
+    wheather</bouton>
+  <div id="info">
+
+  </div>
+
+
+
+  <script>
+    const APIKEY = "495606c53d5a70d56e30cf7afc7e1058";
+
+    fetchdata = () => {
+      let city = document.getElementById("getCIty").value;
+      console.log(city)
+      fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&APPID=${APIKEY}`)
+        .then(response => { return response.json() })
+        .then(data => {
+          console.log(data)
+          document.getElementById("info").innerHTML = `    <ul>
+      <li>City:${data.name}</li>
+      <li>Temp in c: ${data.main.temp}</li>
+      <li>Humidity: ${data.main.humidity}</li>
+      <li>Description:${data.weather[0].description}</li>
+    </ul>`
+        })
+        .catch(err => { console.log(err) })
+
+
+
+    }
+  </script>
+</body>
+
+</html>
